@@ -3,9 +3,11 @@ import argparse
 import sys
 import time
 import h5py
-
 from scipy.interpolate import interp1d
 from scipy.integrate import cumtrapz
+
+#change path_to_data to the data path
+
 
 def potential(x,s):
     return s**2*(x**2-1)**2
@@ -76,7 +78,7 @@ def main(argv):
 
     print(dts_sim.shape,flush=True)
 
-    f = h5py.File('~/Repositories/fluctuating_potential_repo+data/data/Poisson/sims_fpts_be/dts_{}.h5'.format(idx),'w')
+    f = h5py.File('path_to_data/Poisson/sims_fpts_be/dts_{}.h5'.format(idx),'w')
     Tx_ = f.create_dataset('Tx',(1,))
     Tx_[...] = Tx
     mu = f.create_dataset('mu_s',(1,))

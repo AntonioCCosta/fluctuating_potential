@@ -5,6 +5,9 @@ import argparse
 import sys
 import time
 import h5py
+
+#change path_to_data accordingly
+
 @jit(nopython=True)
 def integrate(h,Tl,Tx,k,n,t):
     sum_ = 0.;
@@ -39,12 +42,12 @@ def main(argv):
         print(t,integral[kt],flush=True)
 
 
-    f = h5py.File('~/Repositories/fluctuating_potential_repo+data/data/asymptotics/asymptotic_integral/integral_{}.h5'.format(idx),'w')
+    f = h5py.File('path_to_data/asymptotics/asymptotic_integral/integral_{}.h5'.format(idx),'w')
     x_ = f.create_dataset('integral',integral.shape)
     x_[...] = integral
     f.close()
 
-    f = h5py.File('~/Repositories/fluctuating_potential_repo+data/asymptotics/asymptotic_integral/metadata.h5'.format(idx),'w')
+    f = h5py.File('path_to_data/asymptotics/asymptotic_integral/metadata.h5'.format(idx),'w')
     Tx_ = f.create_dataset('Tx',(1,))
     Tx_[...] = Tx
     h_ = f.create_dataset('h',(1,))

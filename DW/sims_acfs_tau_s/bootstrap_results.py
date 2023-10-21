@@ -4,7 +4,8 @@ import argparse
 import sys
 import time
 import h5py
-sys.path.append("~/Repositories/fluctuating_potential_repo+data/fluctuating_potential/utils/")
+#change path_to_utils and path_to_data accordingly
+sys.path.append("path_to_utils/")
 import stats
 from scipy.interpolate import interp1d
 from scipy.integrate import cumtrapz
@@ -71,12 +72,12 @@ def main(argv):
     args=parser.parse_args()
     idx = int(args.Idx)
 
-    params = np.loadtxt('~/Repositories/fluctuating_potential_repo+data/fluctuating_potential/DW/sims_acfs_tau_s/iteration_Ts_eps.txt')
+    params = np.loadtxt('path_to_data/DW/sims_acfs_tau_s/iteration_Ts_eps.txt')
     Ts = params[idx,1]
 
     print(Ts,flush=True)
 
-    f = h5py.File('../data//DW/sims_acfs_tau_s/acfs_{}.h5'.format(idx),'r')
+    f = h5py.File('path_to_data/DW/sims_acfs_tau_s/acfs_{}.h5'.format(idx),'r')
     C_nc_sims = ma.masked_invalid(np.array(f['C_nc_sims']))
     C_sims = ma.masked_invalid(np.array(f['C_sims']))
     lags = np.array(f['lags'],dtype=int)
@@ -103,7 +104,7 @@ def main(argv):
     C_nc = np.vstack([mean_nc,cil_nc,ciu_nc]).T
     C_c = np.vstack([mean_c,cil_c,ciu_c]).T
 
-    f = h5py.File('../data/DW/sims_acfs_tau_s/bootstrapped_acfs_{}.h5'.format(idx),'w')
+    f = h5py.File('path_to_data/DW/sims_acfs_tau_s/bootstrapped_acfs_{}.h5'.format(idx),'w')
     cnc_ = f.create_dataset('C_nc_ci',C_nc.shape)
     cnc_[...] = C_nc
     cc_ = f.create_dataset('C_c_ci',C_c.shape)

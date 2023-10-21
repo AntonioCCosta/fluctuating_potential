@@ -4,12 +4,14 @@ import sys
 import time
 import h5py
 
+#change path_to_data to the data path
+
 def main(argv):
     parser = argparse.ArgumentParser()
     parser.add_argument('-idx','--Idx',help='index',default=0,type=int)
     args=parser.parse_args()
     idx = int(args.Idx)
-    f = h5py.File('~/Repositories/fluctuating_potential_repo+data/data/Poisson/sims_fpts_be/dts_{}.h5'.format(idx),'r')
+    f = h5py.File('path_to_data/Poisson/sims_fpts_be/dts_{}.h5'.format(idx),'r')
     fpts = np.array(f['dts_sim'])
     f.close()
     print(fpts.shape,fpts.max(),flush=True)
@@ -18,7 +20,7 @@ def main(argv):
     freqs,bin_edges = np.histogram(fpts,bins)
     centers_t = (bin_edges[:-1]+bin_edges[1:])/2
 
-    f = h5py.File('~/Repositories/fluctuating_potential_repo+data/data/Poisson/sims_fpts_be/fptd_{}.h5'.format(idx),'w')
+    f = h5py.File('path_to_data/Poisson/sims_fpts_be/fptd_{}.h5'.format(idx),'w')
     f_ = f.create_dataset('freqs',freqs.shape)
     f_[...] = freqs
     ct_ = f.create_dataset('centers_t',centers_t.shape)

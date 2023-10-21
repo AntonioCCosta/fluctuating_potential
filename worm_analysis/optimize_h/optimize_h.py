@@ -6,6 +6,8 @@ import h5py
 from scipy.signal import savgol_filter
 from scipy.interpolate import UnivariateSpline
 
+#change path_to_data to the data path
+
 def kernel(x):
     kernel_x = ma.zeros(x.shape)
     sel = x**2<5
@@ -93,7 +95,7 @@ def main(argv):
     frameRate=16.
     data_dt=1/frameRate
 
-    ctraj_path = '~/Repositories/fluctuating_potential_repo+data/data/worm_analysis/ctrajs_1000_clusters/' #needs to be redefined
+    ctraj_path = 'path_to_data/worm_analysis/ctrajs_1000_clusters/' #needs to be redefined
     f = h5py.File(ctraj_path+'/c_traj_w.h5','r')
     mD = f['MetaData']
     n_clusters = np.array(mD['n_clusters'],dtype=int)[0]
@@ -142,7 +144,7 @@ def main(argv):
 
 
     print('Saving results',flush=True)
-    f = h5py.File('~/Repositories/fluctuating_potential_repo+data/data/worm_analysis/optimize_h/delta_h_{}.h5'.format(idx),'w')
+    f = h5py.File('path_to_data/worm_analysis/optimize_h/delta_h_{}.h5'.format(idx),'w')
     dh_ = f.create_dataset('delta_h',delta_h.shape)
     dh_[...] = delta_h
     h_ = f.create_dataset('h_range',h_range.shape)

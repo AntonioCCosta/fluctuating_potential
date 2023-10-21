@@ -3,7 +3,8 @@ import argparse
 import sys
 import time
 import h5py
-sys.path.append("~/Repositories/fluctuating_potential_repo+data/fluctuating_potential/utils/")
+#change path_to_utils and path_to_data accordingly
+sys.path.append("path_to_utils/")
 import stats
 
 import numba
@@ -73,7 +74,7 @@ def main(argv):
     print(C_sims.shape,flush=True)
 
 
-    f = h5py.File('../data/DW/sims_acfs_tau_s/acfs_{}.h5'.format(idx),'w')
+    f = h5py.File('path_to_data/DW/sims_acfs_tau_s/acfs_{}.h5'.format(idx),'w')
     mD = f.create_group('metaData')
     Tx_ = mD.create_dataset('Tx',(1,))
     Tx_[...] = Tx

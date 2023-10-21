@@ -2,7 +2,8 @@ import numpy as np
 import numpy.ma as ma
 import argparse
 import sys
-sys.path.append("~/Repositories/fluctuating_potential_repo+data/fluctuating_potential/utils/")
+#change path_to_utils and path_to_data accordingly
+sys.path.append(path_to_utils)
 import operator_calculations as op_calc
 import delay_embedding as embed
 import stats
@@ -84,7 +85,7 @@ def main():
     frameRate=16.
     data_dt=1/frameRate
 
-    ctraj_path = '~/Repositories/fluctuating_potential_repo+data/data/worm_analysis/ctrajs_1000_clusters/'
+    ctraj_path = 'path_to_data/worm_analysis/ctrajs_1000_clusters/'
     f = h5py.File(ctraj_path+'/c_traj_w.h5','r')
     mD = f['MetaData']
     n_clusters = np.array(mD['n_clusters'],dtype=int)[0]
@@ -97,7 +98,7 @@ def main():
     dts_sims_w=[]
     dts_sims_tv_w=[]
     for kw in range(len(ctraj_w)):
-        f = h5py.File('~/Repositories/fluctuating_potential_repo+data/data/worm_analysis/sims_fpts/sims_w_{}.h5'.format(kw),'r')
+        f = h5py.File('path_to_data/worm_analysis/sims_fpts/sims_w_{}.h5'.format(kw),'r')
         dts_sims = np.array(f['dts_sims'])
         dts_sims_tv = np.array(f['dts_sims_tv'])
         dx = np.array(f['metaData/dx'])[0]
@@ -161,7 +162,7 @@ def main():
 
     print('Estimate from Markov model',flush=True)
 
-    f = h5py.File('~/Repositories/fluctuating_potential_repo+data/data/worm_data/labels_tree/labels_tree.h5','r')
+    f = h5py.File('path_to_data/worm_data/labels_tree/labels_tree.h5','r')
     delay = int(np.array(f['delay'])[0])
     eigfunctions = np.array(f['eigfunctions'])
     final_labels = ma.masked_invalid(np.array(f['final_labels'],dtype=int))
@@ -176,7 +177,7 @@ def main():
     n_worms=12
     kmeans_labels = labels_tree[0,:]
 
-    f = h5py.File('~/Repositories/fluctuating_potential_repo+data/data/worm_data/symbol_seq_sims/symbol_sequence_simulations.h5','r')
+    f = h5py.File('path_to_data/worm_data/symbol_seq_sims/symbol_sequence_simulations.h5','r')
     sims_w = []
     for worm in range(n_worms):
         sims_w.append(np.array(f[str(worm)]['sims'],dtype=int))
@@ -203,7 +204,7 @@ def main():
     x_sim_tv,y_err_sim_tv = get_errorbar_dist(dts_sims_tv_w,0,1000)
 
     print('Saving results',flush=True)
-    f = h5py.File('~/Repositories/fluctuating_potential_repo+data/data/worm_analysis/fpts_errorbars/fpts_errorbars.h5','w')
+    f = h5py.File('path_to_data/worm_analysis/fpts_errorbars/fpts_errorbars.h5','w')
     xd_ = f.create_dataset('x_data',x_data[:-1].shape)
     xd_[...] = x_data[:-1]
     yd_ = f.create_dataset('y_err_data',y_err_data[:-1].shape)
