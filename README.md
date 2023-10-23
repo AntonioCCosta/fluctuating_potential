@@ -1,6 +1,6 @@
 # fluctuating_potential
 
-This repository contains the scripts for reproducting the results presented in
+This repository contains the scripts for reproducing the results presented in
 
 Costa AC, Vergassola M (2023) "Fluctuating landscapes and heavy tails in animal behavior".
 
